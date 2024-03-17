@@ -1,0 +1,42 @@
+<!-- templates/lista_usuarios.html -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Lista de Usuários Cadastrados</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+    </nav>
+    <h1>Lista de Usuários Cadastrados</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario[0] }}</td>
+            <td>{{ usuario[1] }}</td>
+            <td>{{ usuario[2] }}</td>
+            <td>
+                <form action="{{ url_for('apagar_usuario', id=usuario[0]) }}" method="post">
+                    <button type="submit" class="btn-delete">Apagar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="{{ url_for('apagar_todos') }}" method="post">
+        <button type="submit" class="btn-delete-all">Apagar Todos os Usuários</button>
+    </form>
+    
+</body>
+</html>
